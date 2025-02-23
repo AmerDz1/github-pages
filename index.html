@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC Generator & Checker</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid white;
+            border-radius: 10px;
+            background-color: #222;
+        }
+        .button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: limegreen;
+            color: black;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+            margin-top: 10px;
+            background-color: #333;
+            color: white;
+            border: 1px solid white;
+            padding: 5px;
+        }
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .approved {
+            color: limegreen;
+        }
+        .declined {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>MULTI BIN CC GENERATOR</h1>
+    <div class="container">
+        <button class="button">Generate</button>
+        <button class="button" onclick="toggleOtpSection()">OTP</button>
+        <div id="otp-section" style="display: none;">
+            <textarea id="card-input" placeholder="Paste cards here..."></textarea>
+            <button class="button" onclick="checkCards()">Check OTP</button>
+            <div id="result" class="result"></div>
+        </div>
+    </div><script>
+    function toggleOtpSection() {
+        let section = document.getElementById("otp-section");
+        section.style.display = section.style.display === "none" ? "block" : "none";
+    }
+
+    function checkCards() {
+        let input = document.getElementById("card-input").value;
+        let resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = "";
+        let cards = input.split("\n");
+        cards.forEach(card => {
+            let status = Math.random() > 0.5 ? "Approved" : "Declined";
+            let colorClass = status === "Approved" ? "approved" : "declined";
+            resultDiv.innerHTML += `<p class="${colorClass}">${card} - ${status}</p>`;
+        });
+    }
+</script>
+
+</body>
+</html>
